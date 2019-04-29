@@ -1,4 +1,16 @@
-# Novelty_Detection_with_Autoencoder
+# Credit Card Fraud Detection
 
-- Korea University 2019 Spring Semester, Data Mining (Baek Jun Geol) Term Project
-- [Credit Card Fraud Detection (Kaggle)](https://www.kaggle.com/mlg-ulb/creditcardfraud/version/3) data is used to perfom novelty detection
+## About Credit Fraud Dataset :
+- blah blah
+
+### Download Dataset
+```
+$ cd ..  
+$ mkdir data  
+$ cd data  
+$ kaggle datasets download -d mlg-ulb/creditcardfraud 
+```
+
+### Columns
+- Time
+- blah blah
