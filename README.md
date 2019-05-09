@@ -10,7 +10,7 @@
 $ cd ..  
 $ mkdir data  
 $ cd data  
-$ kaggle datasets download -d mlg-ulb/creditcardfraud 
+$ kaggle datasets download -d --unzip mlg-ulb/creditcardfraud 
 ```
 
 ### Columns
