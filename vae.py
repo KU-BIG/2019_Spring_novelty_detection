@@ -1,25 +1,25 @@
 from torch import nn
 from torch.autograd import Variable
 
-ZDIMS=20
+class VAE(nn.Module) :
 
-class VAE(nn.Module) : 
-    def __init__(self, zdims):
+    def __init__(self, input_dim, zdims):
         super(VAE, self).__init__()
         
         # Encoder
-        self.fc1 = nn.Linear(784, 400)
+        self.input_dim = input_dim
+        self.fc1 = nn.Linear(input_dim, 15)
         
         self.leakyrelu = nn.LeakyReLU()
         
-        self.fc21 = nn.Linear(400, zdims) # mu
-        self.fc22 = nn.Linear(400, zdims) # log_var
+        self.fc21 = nn.Linear(15, zdims) # mu
+        self.fc22 = nn.Linear(15, zdims) # log_var
         
         
         # Decoder
-        self.fc3 = nn.Linear(zdims, 400)
+        self.fc3 = nn.Linear(zdims, 15)
         
-        self.fc4 = nn.Linear(400, 784) # from latent space to output
+        self.fc4 = nn.Linear(15, input_dim) # from latent space to output
         self.sigmoid = nn.Sigmoid()
         
     def encode(self, x) :
@@ -42,7 +42,7 @@ class VAE(nn.Module) :
         return self.sigmoid(self.fc4(h3)) # final output, reconstruction of mnist image
     
     def forward(self, x) :
-        mu, logvar = self.encode(x.view(-1, 784))
+        mu, logvar = self.encode(x.view(-1, self.input_dim))
         z = self.reparametrize(mu, logvar)
         return self.decode(z), mu, logvar
     
