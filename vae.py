@@ -3,23 +3,23 @@ from torch.autograd import Variable
 
 class VAE(nn.Module) :
 
-    def __init__(self, input_dim, zdims):
+    def __init__(self, input_dim, zdims, hdims):
         super(VAE, self).__init__()
         
         # Encoder
         self.input_dim = input_dim
-        self.fc1 = nn.Linear(input_dim, 15)
+        self.fc1 = nn.Linear(input_dim, hdims)
         
         self.leakyrelu = nn.LeakyReLU()
         
-        self.fc21 = nn.Linear(15, zdims) # mu
-        self.fc22 = nn.Linear(15, zdims) # log_var
+        self.fc21 = nn.Linear(hdims, zdims) # mu
+        self.fc22 = nn.Linear(hdims, zdims) # log_var
         
         
         # Decoder
-        self.fc3 = nn.Linear(zdims, 15)
+        self.fc3 = nn.Linear(zdims, hdims)
         
-        self.fc4 = nn.Linear(15, input_dim) # from latent space to output
+        self.fc4 = nn.Linear(hdims, input_dim) # from latent space to output
         self.sigmoid = nn.Sigmoid()
         
     def encode(self, x) :
